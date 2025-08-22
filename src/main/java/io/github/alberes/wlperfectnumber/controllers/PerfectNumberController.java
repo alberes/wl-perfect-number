@@ -16,6 +16,8 @@ import jakarta.validation.constraints.Min;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
 @RestController
@@ -38,13 +40,19 @@ public class PerfectNumberController {
                     content = @Content(schema = @Schema(implementation = StandardErrorDto.class)))
     })
     public ResponseEntity<PerfectNumberResponseDto> verifyPerfectNumbers(@RequestBody @Valid PerfectNumberRequestDto dto){
-
+        String host = "";
         List<Integer> perfectNumbers = this.services.perfectNumber(dto.start(), dto.end());
         if(perfectNumbers.isEmpty()){
             return ResponseEntity.noContent().build();
         }
 
+        try {
+            host = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+
         return ResponseEntity
-                .ok(new PerfectNumberResponseDto(perfectNumbers));
+                .ok(new PerfectNumberResponseDto(host, perfectNumbers));
     }
 }
