@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/perfect-numbers")
@@ -26,6 +27,8 @@ import java.util.List;
 public class PerfectNumberController {
 
     private final PerfectNumberService services;
+
+    private final static UUID id = UUID.randomUUID();
 
     public PerfectNumberController(PerfectNumberService services) {
         this.services = services;
@@ -53,6 +56,6 @@ public class PerfectNumberController {
         }
 
         return ResponseEntity
-                .ok(new PerfectNumberResponseDto(host, perfectNumbers));
+                .ok(new PerfectNumberResponseDto(id.toString(), host, perfectNumbers));
     }
 }
