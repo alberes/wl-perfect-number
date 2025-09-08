@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wl-perfect-number-service
+spec:
+  selector:
+    app: wl-perfect-number-deployment
+  ports:
+    - port: 8080
+      targetPort: 8080

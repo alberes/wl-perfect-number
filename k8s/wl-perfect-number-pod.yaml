@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wl-perfect-number-pod
+  labels:
+    name: wl-perfect-number-pod
+spec:
+  containers:
+    - name: wl-perfect-number
+      image: alberes/wl-perfect-number:1.0.0
+      resources:
+        requests:
+          memory: "128Mi"
+          cpu: "0.5"
+        limits:
+          memory: "512Mi"
+          cpu: "1"
+      ports:
+        - containerPort: 8080

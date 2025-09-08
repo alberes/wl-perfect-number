@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wl-perfect-number-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: wl-perfect-number-deployment
+  template:
+    metadata:
+      labels:
+        app: wl-perfect-number-deployment
+    spec:
+      containers:
+        - name: wl-perfect-number
+          image: alberes/wl-perfect-number:1.0.0
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "0.5"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+          ports:
+            - containerPort: 8080
